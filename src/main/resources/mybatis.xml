@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+<!--        <setting name="logImpl" value="STDOUT_LOGGING"/>-->
+        <setting name="autoMappingBehavior"  value="FULL"/>
+<!--        表示mapper文件的resultMap使用自动映射，不需要列出所有的字段名。（原因在这里，我在mapper文件里面省略了所有的字段名，却忘记添加这个setting）     （真的超容易忘记bushi）-->
+        <setting name="cacheEnabled" value="true"/>
+    </settings>
+    <!-- environments：配置数据库连接环境信息。可以配置多个environment，通过default属性切换不同的environment-->
+    <environments default="localhost">
+        <environment id="localhost">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <!--数据库连接信息-->
+                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/wens_sub_health_1?useSSL=false&amp;serverTimezone=GMT%2B8"/>
+                <property name="username" value="root"/>
+                <property name="password" value="njau#B307"/>
+            </dataSource>
+        </environment>
+
+        <environment id="yun">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <!--数据库连接信息-->
+                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://121.196.198.106:3306/wens_sub_health?useSSL=false&amp;serverTimezone=GMT%2B8"/>
+                <property name="username" value="root"/>
+                <property name="password" value="njau#B307"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+        <!-- 一个mapper标签指定一个文件的位置,从类路径开始的路径信息（target/classes）类路径-->
+<!--        <package name="com.njau.mapper"/>-->
+        <mapper resource="com/njau/mapper/DetectionMapper.xml"/>
+    </mappers>
+
+</configuration>

@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace 在以mapper接口文件调用sql时，应指向对应的dao层接口-->
+<!--直接使用mapper.xml文件中的sql时，可以自定义，只要不与现存的namespace冲突即可-->
+<mapper namespace="com.njau.mapper.DetectionMapper">
+    <insert id="insertDropResult" parameterType="com.njau.entity.DropInfo">
+        insert into drop_info (channel, equip, name, water, loose, blood, sum, base_score, health_score, total_score, date, time)
+        values (#{channel}, #{equip}, #{name}, #{water}, #{loose}, #{blood}, #{sum}, #{base_score}, #{health_score}, #{total_score}, #{date}, #{time})
+    </insert>
+
+    <insert id="insertSoundResult" parameterType="com.njau.entity.SoundInfo">
+        insert into sound_info (channel, equip, name, cough, chirp, sum, base_score, health_score, total_score, date, time)
+        values (#{channel}, #{equip}, #{name}, #{cough}, #{chirp}, #{sum}, #{base_score},#{health_score}, #{total_score}, #{date}, #{time})
+    </insert>
+
+    <select id="selectDropInfo" parameterType="java.lang.String" resultType="com.njau.entity.DropInfo">
+        select * from drop_info where date=#{date}
+    </select>
+
+    <select id="selectSoundInfo" parameterType="java.lang.String" resultType="com.njau.entity.SoundInfo">
+        select * from sound_info where date=#{date}
+    </select>
+
+    <select id="selectInputInfo" parameterType="java.lang.String" resultType="com.njau.entity.InputInfo">
+        select * from input_info ORDER BY id DESC LIMIT 1;
+    </select>
+
+    <insert id="insertInputInfo" parameterType="com.njau.entity.InputInfo">
+        insert into input_info (A4, M4, AFI, FI, A, DW, HW, AWI, AWE, C, AWC,APE, J,D,P,TZ1,TZ2,U,W,WAEW,PAEW,day,T,H,CO2,NH3,date,time)
+        values (#{A4}, #{M4}, #{AFI}, #{FI}, #{A}, #{DW}, #{HW}, #{AWI}, #{AWE}, #{C}, #{AWC},#{APE}, #{J},#{D},#{P},#{TZ1},#{TZ2},#{U},#{W},#{WAEW},#{PAEW},#{day},#{T},#{H},#{CO2},#{NH3},#{date},#{time})
+    </insert>
+
+    <!--死亡率-->
+    <insert id="insertDeadweight_loss_rateInfo" parameterType="com.njau.entity.Deadweight_loss_rate">
+        insert into deadweight_loss_rate (M,A, base_score, health_score, total_score, date,time)
+        values (#{M}, #{A}, #{base_score},#{health_score}, #{total_score}, #{date}, #{time})
+    </insert>
+
+    <!--采食量-->
+    <insert id="insertQuantity_of_food_intake" parameterType="com.njau.entity.Quantity_of_food_intake">
+        insert into quantity_of_food_intake (AFI,FI, base_score, behaviour_score, total_score, date,time)
+        values (#{AFI}, #{FI}, #{base_score},#{behaviour_score}, #{total_score}, #{date}, #{time})
+    </insert>
+
+    <!--饮水量-->
+    <insert id="insertWater_intakeInfo" parameterType="com.njau.entity.Water_intake">
+        insert into water_intake (DW,HW,A,AWI, base_score, behaviour_score, total_score, date,time)
+        values (#{DW}, #{HW}, #{A},#{AWI},#{base_score},#{behaviour_score}, #{total_score}, #{date}, #{time})
+    </insert>
+
+    <!--畸形蛋-->
+    <insert id="insertDeformed_eggsInfo" parameterType="com.njau.entity.Deformed_eggs">
+        insert into deformed_eggs (J,D,P, base_score, production_score, total_score, date,time)
+        values (#{J}, #{D}, #{P},#{base_score},#{production_score}, #{total_score}, #{date}, #{time})
+    </insert>
+    <!--体重-->
+    <insert id="insertWeight" parameterType="com.njau.entity.Weight">
+        insert into weight (TZ1,TZ2, base_score, production_score, total_score, date, time)
+        values (#{TZ1}, #{TZ2},#{base_score},#{production_score}, #{total_score}, #{date}, #{time})
+    </insert>
+    <!--均匀度-->
+    <insert id="insertUniformity" parameterType="com.njau.entity.Uniformity">
+        insert into uniformity (U, base_score, production_score, total_score, date,time)
+        values (#{U},#{base_score},#{production_score}, #{total_score}, #{date}, #{time})
+    </insert>
+    <!--平均蛋重-->
+    <insert id="insertAverage_egg" parameterType="com.njau.entity.Average_egg">
+        insert into average_egg (WAEW,PAEW, base_score, production_score, total_score, date,time)
+        values (#{WAEW},#{P AEW},#{base_score},#{production_score}, #{total_score}, #{date}, #{time})
+    </insert>
+
+    <!--温度-->
+    <insert id="insertEnvironmental_T" parameterType="com.njau.entity.Environmental_T">
+        insert into environmental_t (T,base_score, health_score, total_score, date,time)
+        values (#{T},  #{base_score},#{health_score}, #{total_score}, #{date}, #{time})
+    </insert>
+
+    <!--湿度-->
+    <insert id="insertEnvironmental_H" parameterType="com.njau.entity.Environmental_H">
+        insert into environmental_h (H ,base_score, health_score, total_score, date,time)
+        values (#{H},  #{base_score},#{health_score}, #{total_score}, #{date}, #{time})
+    </insert>
+
+    <!--Co2-->
+    <insert id="insertEnvironmental_CO2" parameterType="com.njau.entity.Environmental_CO2">
+        insert into environmental_co2 (CO2 ,base_score, health_score, total_score, date,time)
+        values (#{CO2},  #{base_score},#{health_score}, #{total_score}, #{date}, #{time})
+    </insert>
+
+    <!--nh3-->
+    <insert id="insertEnvironmental_NH3" parameterType="com.njau.entity.Environmental_CO2">
+        insert into environmental_nh3 (NH3 ,base_score, health_score, total_score, date,time)
+        values (#{NH3},  #{base_score},#{health_score}, #{total_score}, #{date}, #{time})
+    </insert>
+
+    <!--蛋-->
+    <insert id="insert_eggInfo" parameterType="com.njau.entity.EggInfo">
+        insert into egg_production (AWE,C,AWC,APE, CD, production_score, total_score, date,time)
+        values (#{AWE}, #{C}, #{AWC}, #{APE}, #{CD}, #{production_score}, #{total_score}, #{date}, #{time})
+    </insert>
+
+    <!--分-->
+    <insert id="insert_Score" parameterType="com.njau.entity.Score">
+        insert into score (temp, temp_score, hum, hum_score, co2, co2_score, nh3, nh3_score, env_score, health_score, sound, sound_score, dead, dead_r, dead_score, bs, ws, ww, soil_rate, soil_score, information_score, layegg, layegg_score, dys, dys_score, damage, weight, weight_score, eve, eve_score, awe, awe_score, behavior_score, drink, drink_score, feed, feed_score, total_score, time)
+        values (#{temp}, #{temp_score}, #{hum}, #{hum_score}, #{co2}, #{co2_score}, #{nh3}, #{nh3_score}, #{env_score}, #{health_score}, #{sound}, #{sound_score}, #{dead}, #{dead_r}, #{dead_score}, #{bs}, #{ws}, #{ww}, #{soil_rate}, #{soil_score}, #{information_score}, #{layegg}, #{layegg_score}, #{dys}, #{dys_score}, #{damage}, #{weight}, #{weight_score}, #{eve}, #{eve_score}, #{awe}, #{awe_score}, #{behavior_score}, #{drink}, #{drink_score}, #{feed}, #{feed_score}, #{total_score}, #{time})
+    </insert>
+
+    <select id="selectCagePhoto" parameterType="java.lang.String" resultType="com.njau.entity.CagePhotoInfo">
+        select id AS id,
+               ts AS ts,
+               shed AS shed,
+               col AS col,
+               row_num AS rowNum,
+               layer AS layer,
+               camera_id AS cameraId,
+               map_name AS mapName,
+               cage_point AS cagePoint,
+               position_name AS positionName,
+               filename AS filename,
+               content_type AS contentType,
+               image_bytes AS imageBytes,
+               processStatus  AS processStatus ,
+               saved_path AS savedPath,
+            date AS date,
+            created_at AS createdAt
+        FROM cage_photos
+        WHERE date = #{date}
+          AND processStatus = 3
+          AND shed IS NOT NULL
+          AND layer IS NOT NULL
+          AND col IS NOT NULL
+          AND row_num IS NOT NULL
+        ORDER BY id DESC;
+    </select>
+
+    <update id="claimCagePhotos">
+        UPDATE cage_photos
+        SET processStatus = 3
+        WHERE date = #{date}
+          AND processStatus = 0
+          AND shed IS NOT NULL
+          AND layer IS NOT NULL
+          AND col IS NOT NULL
+          AND row_num IS NOT NULL
+        ORDER BY id DESC
+            LIMIT ${limit}
+    </update>
+
+    <update id="markCagePhotoDone">
+        UPDATE cage_photos
+        SET processStatus = 1
+        WHERE id = #{id} AND processStatus = 3
+    </update>
+
+    <update id="markCagePhotoFailed">
+        UPDATE cage_photos
+        SET processStatus = 2
+        WHERE id = #{id} AND processStatus = 3
+    </update>
+
+    <insert id="insertClusterInfo" parameterType="com.njau.entity.ClusterInfo">
+        INSERT INTO cluster_info
+        (shed, col, rowNum, layer, cameraId, filename, cagePoint, agg, aggStr, date, yunPath, time)
+        VALUES
+            (#{shed}, #{col}, #{rowNum}, #{layer}, #{cameraId}, #{filename}, #{cagePoint}, #{agg}, #{aggStr}, #{date}, #{yunPath}, #{time})
+    </insert>
+
+    <select id="selectClusterInfo">
+        SELECT
+            id, shed, col, rowNum, layer, cameraId, filename, cagePoint, agg, aggStr, date,yunPath, time
+        FROM cluster_info
+        WHERE date = #{date} AND filename = #{filename}
+    </select>
+
+    <insert id="insertEggsInfo" parameterType="com.njau.entity.EggsInfo">
+        INSERT INTO eggs_info
+        (shed, col, rowNum, layer, cameraId, filename, cagePoint, egg, date, yunPath, time)
+        VALUES
+            (#{shed}, #{col}, #{rowNum}, #{layer}, #{cameraId}, #{filename}, #{cagePoint}, #{egg}, #{date}, #{yunPath}, #{time})
+    </insert>
+
+    <select id="selectEggsInfo">
+        SELECT
+            id, shed, col, rowNum, layer, cameraId, filename, cagePoint, egg, date, yunPath, time
+        FROM eggs_info
+        WHERE date = #{date} AND filename = #{filename}
+    </select>
+
+    <insert id="insertCombInfo" parameterType="com.njau.entity.CombInfo">
+        INSERT INTO comb_info
+        (shed, col, rowNum, layer, cameraId, filename, cagePoint, score, date, yunPath, time)
+        VALUES
+            (#{shed}, #{col}, #{rowNum}, #{layer}, #{cameraId}, #{filename}, #{cagePoint}, #{score}, #{date}, #{yunPath}, #{time})
+    </insert>
+
+    <select id="selectCombInfo">
+        SELECT
+            id, shed, col, rowNum, layer, cameraId, filename, cagePoint, score, date, yunPath, time
+        FROM comb_info
+        WHERE date = #{date} AND filename = #{filename}
+    </select>
+
+    <insert id="insertOmInfo" parameterType="com.njau.entity.OmInfo">
+        INSERT INTO om_info
+        (shed, col, rowNum, layer, cameraId, filename, cagePoint, open, summary, omRatio, date, yunPath, time)
+        VALUES
+            (#{shed}, #{col}, #{rowNum}, #{layer}, #{cameraId}, #{filename}, #{cagePoint}, #{open}, #{summary}, #{omRatio}, #{date}, #{yunPath}, #{time})
+    </insert>
+
+    <select id="selectOmInfo">
+        SELECT
+            id, shed, col, rowNum, layer, cameraId, filename, cagePoint, open, summary, omRatio, date, yunPath, time
+        FROM om_info
+        WHERE date = #{date} AND filename = #{filename}
+    </select>
+
+</mapper>
